@@ -22,17 +22,17 @@ const BookList = [
         uri: require("../assets/audios/ReadAlong/PeterPan.m4a")
       }
     ]
-  },
-
-  {
-    bookTitle: "Little Mermaid",
-    tracks: [
-      {
-        title: "story",
-        uri: require("../assets/audios/ReadAlong/TheLittleMermaid.m4a")
-      }
-    ]
   }
+
+  // {
+  //   bookTitle: "Little Mermaid",
+  //   tracks: [
+  //     {
+  //       title: "story",
+  //       uri: require("../assets/audios/ReadAlong/TheLittleMermaid.m4a")
+  //     }
+  //   ]
+  // }
 ];
 
 const BookListScreen = ({ navigation }) => {
