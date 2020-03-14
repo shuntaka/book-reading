@@ -14,9 +14,9 @@ const PlayScreen = ({ navigation }) => {
     positionMillis: 0
   });
 
-  console.log(`status:${state.isPlaying}  ${state.isLoaded}`);
+  // console.log(`status:${state.isPlaying}  ${state.isLoaded}`);
   const _onPlaybackStatusUpdate = playbackStatus => {
-    console.log("status updated");
+    // console.log("status updated");
     setState({
       isPlaying: playbackStatus.isPlaying,
       isLoaded: playbackStatus.isLoaded,
@@ -61,6 +61,35 @@ const PlayScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.playPause}>
+        <TouchableOpacity
+          style={{ height: 30, alignSelf: "flex-end" }}
+          onPress={async () => {
+            await soundObject.setPositionAsync(0);
+          }}
+        >
+          <View>
+            <Text>beggining</Text>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={{ height: 20, alignSelf: "flex-end" }}
+          onPress={async () => {
+            const soundStatus = await soundObject.getStatusAsync();
+            const duration = soundStatus.durationMillis;
+            console.log(duration);
+            const middle = Math.floor(duration / 2);
+            await soundObject.setPositionAsync(middle);
+            const soundStatus2 = await soundObject.getStatusAsync();
+            // console.log(soundStatus2);
+            const currentPosition = soundStatus2.positionMillis;
+            console.log(currentPosition);
+          }}
+        >
+          <View>
+            <Text>middle</Text>
+          </View>
+        </TouchableOpacity>
+
         <TouchableOpacity
           style={styles.coveringTouchableOpacity}
           onPress={playPause}
