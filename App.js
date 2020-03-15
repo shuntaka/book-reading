@@ -6,6 +6,7 @@ import { Platform, StatusBar, StyleSheet, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 import { Provider as TracksProvider } from "./Context/TracksContext";
+import { Provider as BooksProvider } from "./Context/BooksContext";
 import AppNavigator from "./navigation/AppNavigator";
 
 export default function App(props) {
@@ -23,9 +24,11 @@ export default function App(props) {
     return (
       <View style={styles.container}>
         {Platform.OS === "ios" && <StatusBar barStyle="default" />}
-        <TracksProvider>
-          <AppNavigator />
-        </TracksProvider>
+        <BooksProvider>
+          <TracksProvider>
+            <AppNavigator />
+          </TracksProvider>
+        </BooksProvider>
       </View>
     );
   }
