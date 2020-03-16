@@ -33,7 +33,7 @@ BookListStack.navigationOptions = {
       focused={focused}
       name={
         Platform.OS === "ios"
-          ? "md-book"
+          ? "ios-book"
           : // ? `ios-information-circle${focused ? "" : "-outline"}`
             "md-information-circle"
       }
