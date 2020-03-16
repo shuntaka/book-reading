@@ -15,6 +15,8 @@ const reducer = (state, action) => {
       return action.payload;
     case "fetch_tracks":
       return action.payload;
+    case "delete_track":
+      return action.payload;
     default:
       return state;
   }
@@ -25,8 +27,6 @@ const addTrack = dispatch => async (bookTitle, fileName, uri) => {
   const savePath = `${FileSystem.documentDirectory}${normalizeBookTitle(
     bookTitle
   )}_${normalizeFileName(fileName)}`;
-  console.log("save path is:");
-  console.log(savePath);
   await FileSystem.copyAsync({ from: uri, to: savePath });
   const fileInfo = await FileSystem.getInfoAsync(savePath);
 
@@ -44,22 +44,26 @@ const addTrack = dispatch => async (bookTitle, fileName, uri) => {
   dispatch({ type: "add_track", payload: tracks });
 };
 const fetchTracks = dispatch => async bookTitle => {
-  console.log("fetch tracks for:");
-  console.log(normalizeBookTitle(bookTitle));
-
   const tracks = await AsyncStorageWrapper.getItem(
     `bookreading_${normalizeBookTitle(bookTitle)}`
   );
-  console.log("fetched tracks are:");
-  console.log(tracks);
   dispatch({ type: "fetch_tracks", payload: tracks });
+};
+
+const deleteTrack = dispatch => async (bookTitle, trackTitle, uri) => {
+  await FileSystem.deleteAsync(uri);
+  const trackKey = `bookreading_${normalizeBookTitle(bookTitle)}`;
+  let tracks = await AsyncStorageWrapper.getItem(trackKey);
+  updatedTracks = tracks.filter(track => track.trackTitle !== trackTitle);
+  await AsyncStorageWrapper.setItem(trackKey, updatedTracks);
+  dispatch({ type: "delete_track", payload: updatedTracks });
 };
 
 export const { Context, Provider } = createDataContext(
   //reducer
   reducer,
   //actions
-  { addTrack, fetchTracks },
+  { addTrack, fetchTracks, deleteTrack },
   //initial state
   ["1", "2", "3"]
 );
