@@ -9,6 +9,7 @@ import LinksScreen from "../screens/LinksScreen";
 import SettingsScreen from "../screens/SettingsScreen";
 import TracksScreen from "../screens/TracksScreen";
 import PlayScreen from "../screens/PlayScreen";
+import { Icon } from "native-base";
 
 const config = Platform.select({
   web: { headerMode: "screen" },
@@ -32,8 +33,9 @@ BookListStack.navigationOptions = {
       focused={focused}
       name={
         Platform.OS === "ios"
-          ? `ios-information-circle${focused ? "" : "-outline"}`
-          : "md-information-circle"
+          ? "md-book"
+          : // ? `ios-information-circle${focused ? "" : "-outline"}`
+            "md-information-circle"
       }
     />
   )
