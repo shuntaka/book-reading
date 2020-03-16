@@ -16,16 +16,13 @@ const addBook = dispatch => async (bookDetail, callback) => {
   const bookList = await AsyncStorageWrapper.getItem("bookreading_booklist");
   console.log("inside addBook, bookList is");
   console.log(bookList);
-  if (bookList !== null) {
-    bookList.push(bookDetail);
-    console.log("bookList to set:");
-    console.log(bookList);
-    await AsyncStorageWrapper.setItem("bookreading_booklist", bookList);
-  } else {
-    console.log("bookList to set:");
-    console.log([bookDetail]);
-    await AsyncStorageWrapper.setItem("bookreading_booklist", [bookDetail]);
+  if (bookList === null) {
+    bookList = [];
   }
+  bookList.push(bookDetail);
+  console.log("bookList to set:");
+  console.log(bookList);
+  await AsyncStorageWrapper.setItem("bookreading_booklist", bookList);
   callback();
 };
 
