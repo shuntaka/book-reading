@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import { View, AsyncStorage } from "react-native";
+import { View, AsyncStorage, StyleSheet } from "react-native";
 import {
   Container,
   Content,
@@ -26,19 +26,8 @@ const initialTracks = [
   }
 ];
 
-const inirializeTrackList = async () => {
-  // const initialBookList = [
-  //   {
-  //     bookTitle: "Peter Pan",
-  //     tracks: [
-  //       {
-  //         title: "story",
-  //         uri: require("../assets/audios/ReadAlong/PeterPan.m4a")
-  //       }
-  //     ]
-  //   }
-  // ];
-  const bookreading_peterpan = [{ trackTitle: "testTrack", uri: "" }];
+const initializeTrackList = async () => {
+  const bookreading_peterpan = [];
   await AsyncStorage.setItem(
     "bookreading_peterpan",
     JSON.stringify(bookreading_peterpan)
@@ -75,30 +64,36 @@ const TracksScreen = ({ navigation }) => {
   };
 
   return (
-    <View>
+    <View
+      style={{
+        flex: 1,
+        justifyContent: "space-between"
+      }}
+    >
       <FlatList
         data={state}
         keyExtractor={track => track.uri}
         renderItem={({ item }) => {
           return (
-            <ListItem>
+            <View style={{ padding: 10 }}>
               <TouchableOpacity
+                style={styles.coveringTouchableOpacity}
                 onPress={() => {
                   navigation.navigate("Play", { trackURI: item.uri });
                 }}
               >
                 <Text>{item.trackTitle}</Text>
               </TouchableOpacity>
-            </ListItem>
+            </View>
           );
         }}
       />
       <Button block style={{ margin: 20 }} onPress={addTrackButtonCallback}>
         <Text>add track</Text>
       </Button>
-      <Button block style={{ margin: 20 }} onPress={inirializeTrackList}>
+      {/* <Button block style={{ margin: 20 }} onPress={initializeTrackList}>
         <Text>initialize track</Text>
-      </Button>
+      </Button> */}
     </View>
   );
 };
@@ -116,5 +111,12 @@ const TracksScreen = ({ navigation }) => {
 //     )
 //   };
 // };
+
+const styles = StyleSheet.create({
+  coveringTouchableOpacity: {
+    flex: 1,
+    alignSelf: "stretch"
+  }
+});
 
 export default TracksScreen;

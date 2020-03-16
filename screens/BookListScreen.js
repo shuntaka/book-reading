@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import { View, FlatList, Image, AsyncStorage } from "react-native";
+import { View, FlatList, Image, AsyncStorage, StyleSheet } from "react-native";
 import { Audio } from "expo-av";
 import {
   Container,
@@ -18,7 +18,7 @@ import TracksScreen from "../screens/TracksScreen";
 import { Context as BooksContext } from "../Context/BooksContext";
 
 // initialize
-const inirializeBookList = async () => {
+const initializeBookList = async () => {
   // const initialBookList = [
   //   {
   //     bookTitle: "Peter Pan",
@@ -30,24 +30,12 @@ const inirializeBookList = async () => {
   //     ]
   //   }
   // ];
-  const bookreading_booklist = [
-    { bookTitle: "Peter Pan" },
-    { bookTitle: "Little Mermaid" }
-  ];
-  const bookreading_peterpan = [{ trackTitle: "test", uri: "" }];
+  const bookreading_booklist = [];
   await AsyncStorage.setItem(
     "bookreading_booklist",
     JSON.stringify(bookreading_booklist)
   );
-  await AsyncStorage.setItem(
-    "bookreading_peterpan",
-    JSON.stringify(bookreading_peterpan)
-  );
   const initialBookList = await AsyncStorage.getItem("bookreading_booklist");
-  const initialTracks = await AsyncStorage.getItem("bookreading_peterpan");
-  console.log("initial data is:");
-  console.log(initialBookList);
-  console.log(initialTracks);
 };
 
 const BookListScreen = ({ navigation }) => {
@@ -62,50 +50,57 @@ const BookListScreen = ({ navigation }) => {
     };
   }, []);
   return (
-    <View>
-      <Button
-        style={{ margin: 20 }}
-        block
-        onPress={() => {
-          inirializeBookList();
-        }}
-      >
-        <Text>initialize</Text>
-      </Button>
+    <View
+      style={{
+        flex: 1,
+        justifyContent: "space-between"
+      }}
+    >
       <FlatList
         data={state}
         keyExtractor={book => book.bookTitle}
         renderItem={({ item }) => {
           return (
-            <ListItem>
+            <View style={{ padding: 10 }}>
               <TouchableOpacity
+                style={styles.coveringTouchableOpacity}
                 onPress={() => {
                   navigation.navigate("Tracks", { bookTitle: item.bookTitle });
                 }}
               >
-                <Image></Image>
                 <Text>{item.bookTitle}</Text>
               </TouchableOpacity>
-            </ListItem>
+            </View>
           );
         }}
       />
-    </View>
-  );
-};
 
-BookListScreen.navigationOptions = ({ navigation }) => {
-  return {
-    headerRight: (
-      <TouchableOpacity
+      <Button
+        block
+        style={{ margin: 20 }}
         onPress={() => {
           navigation.navigate("AddBook");
         }}
       >
-        <Icon type="Feather" name="plus" size={30} />
-      </TouchableOpacity>
-    )
-  };
+        <Text>add book</Text>
+      </Button>
+      {/* <Button
+        style={{ margin: 20 }}
+        block
+        onPress={() => {
+          initializeBookList();
+        }}
+      >
+        <Text>initialize</Text>
+      </Button> */}
+    </View>
+  );
 };
 
+const styles = StyleSheet.create({
+  coveringTouchableOpacity: {
+    flex: 1,
+    alignSelf: "stretch"
+  }
+});
 export default BookListScreen;

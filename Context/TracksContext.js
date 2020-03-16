@@ -22,8 +22,9 @@ const addTrack = dispatch => async (bookTitle, fileName, uri) => {
   const savePath = `${FileSystem.documentDirectory}${normalizeBookTitle(
     bookTitle
   )}_${fileName}`;
+  console.log("save path is:");
+  console.log(savePath);
   await FileSystem.copyAsync({ from: uri, to: savePath });
-
   const fileInfo = await FileSystem.getInfoAsync(savePath);
 
   const trackKey = `bookreading_${normalizeBookTitle(bookTitle)}`;
