@@ -5,10 +5,13 @@ import { createBottomTabNavigator } from "react-navigation-tabs";
 import TabBarIcon from "../components/TabBarIcon";
 import BookListScreen from "../screens/BookListScreen";
 import AddBookScreen from "../screens/AddBookScreen";
+import EditBookScreen from "../screens/EditBookScreen";
 import LinksScreen from "../screens/LinksScreen";
 import SettingsScreen from "../screens/SettingsScreen";
 import TracksScreen from "../screens/TracksScreen";
 import PlayScreen from "../screens/PlayScreen";
+import AudioTestScreen from "../screens/AudioTestScreen";
+
 import { Icon } from "native-base";
 
 const config = Platform.select({
@@ -20,8 +23,10 @@ const BookListStack = createStackNavigator(
   {
     BookList: BookListScreen,
     AddBook: AddBookScreen,
+    EditBook: EditBookScreen,
     Tracks: TracksScreen,
-    Play: PlayScreen
+    Play: PlayScreen,
+    AudioTest: AudioTestScreen
   },
   config
 );

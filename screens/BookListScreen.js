@@ -19,17 +19,6 @@ import { Context as BooksContext } from "../Context/BooksContext";
 
 // initialize
 const initializeBookList = async () => {
-  // const initialBookList = [
-  //   {
-  //     bookTitle: "Peter Pan",
-  //     tracks: [
-  //       {
-  //         title: "story",
-  //         uri: require("../assets/audios/ReadAlong/PeterPan.m4a")
-  //       }
-  //     ]
-  //   }
-  // ];
   const bookreading_booklist = [];
   await AsyncStorage.setItem(
     "bookreading_booklist",
@@ -58,18 +47,34 @@ const BookListScreen = ({ navigation }) => {
     >
       <FlatList
         data={state}
-        keyExtractor={book => book.bookTitle}
+        keyExtractor={book => {
+          return book.bookTitle;
+        }}
         renderItem={({ item }) => {
           return (
-            <View style={{ padding: 10 }}>
-              <TouchableOpacity
-                style={styles.coveringTouchableOpacity}
-                onPress={() => {
-                  navigation.navigate("Tracks", { bookTitle: item.bookTitle });
-                }}
-              >
-                <Text>{item.bookTitle}</Text>
-              </TouchableOpacity>
+            <View style={{ flex: 1, flexDirection: "row", padding: 10 }}>
+              <View style={{ flex: 10 }}>
+                <TouchableOpacity
+                  style={styles.coveringTouchableOpacity}
+                  onPress={() => {
+                    navigation.navigate("Tracks", {
+                      bookTitle: item.bookTitle
+                    });
+                  }}
+                >
+                  <Text>{item.bookTitle}</Text>
+                </TouchableOpacity>
+              </View>
+              <View style={{ flex: 1 }}>
+                <TouchableOpacity
+                  onPress={() => {
+                    console.log("pencil clicked");
+                    navigation.navigate("EditBook");
+                  }}
+                >
+                  <Icon type="MaterialCommunityIcons" name="pencil" />
+                </TouchableOpacity>
+              </View>
             </View>
           );
         }}

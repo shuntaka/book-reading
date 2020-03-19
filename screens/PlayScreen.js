@@ -27,10 +27,8 @@ const PlayScreen = ({ navigation }) => {
   useEffect(() => {
     const asyncFunc = async () => {
       const trackURI = navigation.getParam("trackURI");
-      console.log(trackURI);
       await soundObject.loadAsync({ uri: trackURI });
 
-      // await soundObject.loadAsync(require(trackURI));
       soundObject.setOnPlaybackStatusUpdate(_onPlaybackStatusUpdate);
     };
     asyncFunc();

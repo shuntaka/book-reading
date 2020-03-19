@@ -13,7 +13,7 @@ const reducer = (state, action) => {
 };
 
 const addBook = dispatch => async (bookDetail, callback) => {
-  const bookList = await AsyncStorageWrapper.getItem("bookreading_booklist");
+  let bookList = await AsyncStorageWrapper.getItem("bookreading_booklist");
   console.log("inside addBook, bookList is");
   console.log(bookList);
   if (bookList === null) {

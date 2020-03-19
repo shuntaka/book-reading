@@ -30,7 +30,6 @@ const TracksScreen = ({ navigation }) => {
     const { name, uri } = result;
     addTrack(bookTitle, name, uri);
   };
-
   return (
     <View
       style={{
@@ -40,7 +39,10 @@ const TracksScreen = ({ navigation }) => {
     >
       <FlatList
         data={state}
-        keyExtractor={track => track.uri}
+        keyExtractor={(track, index) => {
+          return index.toString();
+          // return track.uri;
+        }}
         renderItem={({ item }) => {
           return (
             <View
@@ -93,6 +95,15 @@ const TracksScreen = ({ navigation }) => {
       />
       <Button block style={{ margin: 20 }} onPress={addTrackButtonCallback}>
         <Text>add track</Text>
+      </Button>
+      <Button
+        block
+        style={{ margin: 20 }}
+        onPress={() => {
+          navigation.navigate("AudioTest", { tracks: state });
+        }}
+      >
+        <Text>audio test</Text>
       </Button>
     </View>
   );
