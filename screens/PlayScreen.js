@@ -6,7 +6,8 @@ import { Icon } from "native-base";
 
 const PlayScreen = ({ navigation }) => {
   //   console.log("rendering");
-  const [soundObject, setSoundObject] = useState(new Audio.Sound());
+  const [soundObject, setSoundObject] = useState();
+  // const [soundObject, setSoundObject] = useState(new Audio.Sound());
 
   const [state, setState] = useState({
     isLoaded: false,
@@ -27,9 +28,13 @@ const PlayScreen = ({ navigation }) => {
   useEffect(() => {
     const asyncFunc = async () => {
       const trackURI = navigation.getParam("trackURI");
-      await soundObject.loadAsync({ uri: trackURI });
-
-      soundObject.setOnPlaybackStatusUpdate(_onPlaybackStatusUpdate);
+      const { sound, status } = await Audio.Sound.createAsync(
+        { uri: trackURI },
+        _onPlaybackStatusUpdate
+      );
+      setSoundObject(sound);
+      // await soundObject.loadAsync({ uri: trackURI });
+      // soundObject.setOnPlaybackStatusUpdate(_onPlaybackStatusUpdate);
     };
     asyncFunc();
     return () => {
