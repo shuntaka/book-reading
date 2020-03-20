@@ -48,7 +48,7 @@ const BookListScreen = ({ navigation }) => {
       <FlatList
         data={state}
         keyExtractor={book => {
-          return book.bookTitle;
+          return book._id;
         }}
         renderItem={({ item }) => {
           return (
