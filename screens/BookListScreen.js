@@ -52,8 +52,21 @@ const BookListScreen = ({ navigation }) => {
         }}
         renderItem={({ item }) => {
           return (
-            <View style={{ flex: 1, flexDirection: "row", padding: 10 }}>
-              <View style={{ flex: 10 }}>
+            <View
+              style={{
+                flex: 1,
+                flexDirection: "row",
+                alignItems: "center",
+                padding: 10
+              }}
+            >
+              <View>
+                <Image
+                  source={{ uri: item.imageURI }}
+                  style={{ width: 100, height: 100 }}
+                />
+              </View>
+              <View style={{ flex: 10, marginLeft: 20 }}>
                 <TouchableOpacity
                   style={styles.coveringTouchableOpacity}
                   onPress={() => {
@@ -69,7 +82,7 @@ const BookListScreen = ({ navigation }) => {
                 <TouchableOpacity
                   onPress={() => {
                     console.log("pencil clicked");
-                    navigation.navigate("EditBook");
+                    navigation.navigate("EditBook", { bookDetail: item });
                   }}
                 >
                   <Icon type="MaterialCommunityIcons" name="pencil" />
