@@ -192,11 +192,11 @@ class App extends React.Component {
 
   async _loadNewPlaybackInstance(playing) {
     if (this.playbackInstance != null) {
+      console.log("_loadNewPlaybackInstance, set playbackInstance to null");
       await this.playbackInstance.unloadAsync();
       // this.playbackInstance.setOnPlaybackStatusUpdate(null);
       this.playbackInstance = null;
     }
-
     const source = { uri: PLAYLIST[this.index].uri };
     const initialStatus = {
       shouldPlay: playing,
@@ -210,11 +210,13 @@ class App extends React.Component {
     };
 
     if (PLAYLIST[this.index].isVideo) {
+      console.log("_loadNewPlaybackInstance for video");
       await this._video.loadAsync(source, initialStatus);
       // this._video.onPlaybackStatusUpdate(this._onPlaybackStatusUpdate);
       this.playbackInstance = this._video;
       const status = await this._video.getStatusAsync();
     } else {
+      console.log("_loadNewPlaybackInstance for audio");
       const { sound, status } = await Audio.Sound.createAsync(
         source,
         initialStatus,
@@ -227,6 +229,7 @@ class App extends React.Component {
   }
 
   _mountVideo = component => {
+    console.log("mountVideo called");
     this._video = component;
     this._loadNewPlaybackInstance(false);
   };

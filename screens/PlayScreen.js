@@ -6,8 +6,8 @@ import { Icon } from "native-base";
 
 const PlayScreen = ({ navigation }) => {
   //   console.log("rendering");
-  const [soundObject, setSoundObject] = useState();
-  // const [soundObject, setSoundObject] = useState(new Audio.Sound());
+  // const [soundObject, setSoundObject] = useState();
+  const [soundObject, setSoundObject] = useState(new Audio.Sound());
 
   const [state, setState] = useState({
     isLoaded: false,
@@ -27,18 +27,23 @@ const PlayScreen = ({ navigation }) => {
 
   useEffect(() => {
     const asyncFunc = async () => {
+      await Audio.setAudioModeAsync({
+        allowsRecordingIOS: false,
+        staysActiveInBackground: false,
+        interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
+        playsInSilentModeIOS: true,
+        shouldDuckAndroid: true,
+        interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
+        playThroughEarpieceAndroid: false
+      });
+
       const trackURI = navigation.getParam("trackURI");
-      const { sound, status } = await Audio.Sound.createAsync(
-        { uri: trackURI },
-        _onPlaybackStatusUpdate
-      );
-      setSoundObject(sound);
-      // await soundObject.loadAsync({ uri: trackURI });
-      // soundObject.setOnPlaybackStatusUpdate(_onPlaybackStatusUpdate);
+      await soundObject.loadAsync({ uri: trackURI });
+      soundObject.setOnPlaybackStatusUpdate(_onPlaybackStatusUpdate);
     };
     asyncFunc();
     return () => {
-      //   setSoundObject(null);
+      setSoundObject(null);
       soundObject.stopAsync();
       soundObject.setOnPlaybackStatusUpdate(null);
       soundObject.unloadAsync();

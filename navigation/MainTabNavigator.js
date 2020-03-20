@@ -25,8 +25,8 @@ const BookListStack = createStackNavigator(
     AddBook: AddBookScreen,
     EditBook: EditBookScreen,
     Tracks: TracksScreen,
-    Play: PlayScreen,
-    AudioTest: AudioTestScreen
+    Play: PlayScreen
+    // AudioTest: AudioTestScreen
   },
   config
 );

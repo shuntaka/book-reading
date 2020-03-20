@@ -96,7 +96,7 @@ const TracksScreen = ({ navigation }) => {
       <Button block style={{ margin: 20 }} onPress={addTrackButtonCallback}>
         <Text>add track</Text>
       </Button>
-      <Button
+      {/* <Button
         block
         style={{ margin: 20 }}
         onPress={() => {
@@ -104,7 +104,7 @@ const TracksScreen = ({ navigation }) => {
         }}
       >
         <Text>audio test</Text>
-      </Button>
+      </Button> */}
     </View>
   );
 };
