@@ -60,12 +60,6 @@ const BookListScreen = ({ navigation }) => {
                 padding: 10
               }}
             >
-              <View>
-                <Image
-                  source={{ uri: item.imageURI }}
-                  style={{ width: 100, height: 100 }}
-                />
-              </View>
               <View style={{ flex: 10, marginLeft: 20 }}>
                 <TouchableOpacity
                   style={styles.coveringTouchableOpacity}
@@ -75,7 +69,31 @@ const BookListScreen = ({ navigation }) => {
                     });
                   }}
                 >
-                  <Text>{item.bookTitle}</Text>
+                  <View
+                    style={{
+                      // borderColor: "blue",
+                      // borderWidth: 5,
+                      flexDirection: "row"
+                    }}
+                  >
+                    <View>
+                      <Image
+                        source={{ uri: item.imageURI }}
+                        style={{ width: 100, height: 100 }}
+                      />
+                    </View>
+                    <View
+                      style={{
+                        // borderColor: "yellow",
+                        // borderWidth: 5,
+                        flex: 1,
+                        justifyContent: "center",
+                        padding: 20
+                      }}
+                    >
+                      <Text>{item.bookTitle}</Text>
+                    </View>
+                  </View>
                 </TouchableOpacity>
               </View>
               <View style={{ flex: 1 }}>
@@ -117,6 +135,8 @@ const BookListScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   coveringTouchableOpacity: {
+    // borderColor: "red",
+    // borderWidth: 5,
     flex: 1,
     alignSelf: "stretch"
   }
