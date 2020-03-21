@@ -60,7 +60,7 @@ const AddBookScreen = ({ navigation }) => {
           style={styles.button}
           block
           onPress={() => {
-            addBook({ bookDetail }, () => {
+            addBook(bookDetail, () => {
               navigation.navigate("BookList");
             });
           }}

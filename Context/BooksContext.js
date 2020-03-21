@@ -21,6 +21,12 @@ const addBook = dispatch => async (bookDetail, callback) => {
   if (bookList === null) {
     bookList = [];
   }
+  console.log("bookDetail is:");
+  console.log(bookDetail);
+  const merged = { ...bookDetail, _id: "1234" };
+  console.log("merged is:");
+  console.log(merged);
+
   bookList.push({ ...bookDetail, _id: uuidv4({ random: seed() }) });
   console.log("bookList to set:");
   console.log(bookList);
