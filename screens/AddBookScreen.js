@@ -7,7 +7,8 @@ import {
   Form,
   Item,
   Input,
-  Button
+  Button,
+  Icon
 } from "native-base";
 
 import * as ImagePicker from "expo-image-picker";
@@ -43,7 +44,28 @@ const AddBookScreen = ({ navigation }) => {
           </Item>
         </Form>
 
-        <Button
+        <TouchableOpacity
+          onPress={async () => {
+            _pickImage();
+          }}
+        >
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              marginTop: 20,
+              marginLeft: 10
+            }}
+          >
+            <View>
+              <Icon type="AntDesign" name="picture" />
+            </View>
+            <View style={{ padding: 10 }}>
+              <Text>Add Image</Text>
+            </View>
+          </View>
+        </TouchableOpacity>
+        {/* <Button
           block
           style={styles.button}
           onPress={async () => {
@@ -51,7 +73,7 @@ const AddBookScreen = ({ navigation }) => {
           }}
         >
           <Text>add image</Text>
-        </Button>
+        </Button> */}
         <Image
           source={{ uri: bookDetail.imageURI }}
           style={{ width: 300, height: 300 }}
